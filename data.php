@@ -32,24 +32,65 @@
     <br>
     <h4>Database Biodiversity Indonesia</h4>
 
-    <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
-
-  
-
+    <div class="container" style="margin-top:20px">
+		<hr>
+		<a href="tambahdata.php"><button class="btn btn-dark right">Tambah Data</button></a>
+        <hr>
+		<div class="table-responsive">
+		<table class="table table-striped jambo_table bulk_action">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Nama Ilmiah</th>
+					<th>Nama </th>
+					<th>Manfaat</th>
+					<th>Populasi</th>
+                    <th>Status</th>
+					<th>Aksi</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				$sql = mysqli_query($kon, "SELECT * FROM anggota_biodiversity ORDER BY Nama DESC") or die(mysqli_error($kon));
+				if(mysqli_num_rows($sql) > 0){
+					$no = 1;
+					while($data = mysqli_fetch_assoc($sql)){
+						echo '
+						<tr>
+							<td>'.$no.'</td>
+							<td>'.$data['NamaIlmiah'].'</td>
+							<td>'.$data['Nama'].'</td>
+							<td>'.$data['Manfaat'].'</td>
+							<td>'.$data['Populasi'].'</td>
+                            <td>'.$data['Status'].'</td>
+							<td>
+								<a href="editdata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-secondary btn-sm">Edit</a>
+								<a href="deletedata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
+							</td>
+						</tr>
+						';
+						$no++;
+					}
+				}else{
+					echo '
+					<tr>
+						<td colspan="6">Tidak ada data.</td>
+					</tr>
+					';
+				}
+				?>
+			<tbody>
+		</table>
+	</div>
     <?php
       $queries = array();
       parse_str($_SERVER['QUERY_STRING'], $queries);
       error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
       switch ($queries['page']) {
-      	case 'tambah_data':
+      	case 'editdata':
       		# code...
-      		include 'tambahdata.php';
+      		include 'editdata.php';
       		break;
-
-              case 'data':
-                # code...
-                include 'data.php';
-                break;
 
         default:
 		          #code...
@@ -57,68 +98,4 @@
 		      break;
         }
         ?>
-
-
-    
-
-    <table class="table table-bordered table-hover">
-        <br>
-        <thead>
-        <tr>
-        <th>No</th>
-            <th>Nama Ilmiah</th>
-            <th>Nama</th>
-            <th>Manfaat</th>
-            <th>Populasi</th>
-            <th>Status</th>
-
-        </tr>
-        </thead>
-        <?php
-
-
-      if (isset($_POST['kata_kunci'])) {
-            $kata_kunci=trim($_POST['kata_kunci']);
-
-            $kolom="";
-            if ($_POST['kolom']=="NamaIlmiah")
-            {
-                $kolom="NamaIlmiah";
-            }else if ($_POST['kolom']=="Nama"){
-                $kolom="Nama";
-            }else {
-                $kolom="Status";
-            }
-
-            $sql="select * from anggota_biodiversity where $kolom like '%".$kata_kunci."%'  order by Nama asc";
-
-        }else {
-            $sql="select * from anggota_biodiversity order by Nama asc";
-        }
-
-
-        $hasil=mysqli_query($kon,$sql);
-        $no=0;
-        while ($data = mysqli_fetch_array($hasil)) {
-            $no++;
-
-            ?>
-            <tbody>
-            <tr>
-                <td><?php echo $no;?></td>
-                <td><?php echo $data["NamaIlmiah"]; ?></td>
-                <td><?php echo $data["Nama"];   ?></td>
-                <td><?php echo $data["Manfaat"];   ?></td>
-                <td><?php echo $data["Populasi"];   ?></td>
-                <td><?php echo $data["Status"];   ?></td>
-            </tr>
-            </tbody>
-            <?php
-        }
-        ?>
-    </table>
-</div>
-
-    </form>
-</body>
-</html>
+	</div>

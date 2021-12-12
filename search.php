@@ -89,6 +89,7 @@
             <th>Manfaat</th>
             <th>Populasi</th>
             <th>Status</th>
+            <th>Aksi</th>
         </tr>
         </thead>
         <?php
@@ -114,25 +115,40 @@
         }
 
 
-        $hasil=mysqli_query($kon, $sql);
-        $no=0;
-        while ($data = mysqli_fetch_array($hasil)) {
-            $no++;
-
-            ?>
-            <tbody>
-            <tr>
-                <td><?php echo $no;?></td>
-                <td><?php echo $data["NamaIlmiah"]; ?></td>
-                <td><?php echo $data["Nama"];   ?></td>
-                <td><?php echo $data["Manfaat"];   ?></td>
-                <td><?php echo $data["Populasi"];   ?></td>
-                <td><?php echo $data["Status"];   ?></td>
-            </tr>
-            </tbody>
-            <?php
-        }
         ?>
+
+<tbody>
+				<?php
+                $hasil=mysqli_query($kon, $sql);
+				$sql = mysqli_query($kon, "SELECT * FROM anggota_biodiversity ORDER BY Nama DESC") or die(mysqli_error($kon));
+				if(mysqli_num_rows($sql) > 0){
+					$no = 1;
+					while ($data = mysqli_fetch_array($hasil)) {
+						echo '
+						<tr>
+							<td>'.$no.'</td>
+							<td>'.$data['NamaIlmiah'].'</td>
+							<td>'.$data['Nama'].'</td>
+							<td>'.$data['Manfaat'].'</td>
+							<td>'.$data['Populasi'].'</td>
+                            <td>'.$data['Status'].'</td>
+							<td>
+								<a href="editdata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-secondary btn-sm">Edit</a>
+								<a href="deletedata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
+							</td>
+						</tr>
+						';
+						$no++;
+					}
+				}else{
+					echo '
+					<tr>
+						<td colspan="6">Tidak ada data.</td>
+					</tr>
+					';
+				}
+				?>
+			<tbody>
     </table>
     <?php
       $queries = array();
@@ -156,6 +172,8 @@
         }
         ?>
 </div>
+
+
 
 </body>
 </html>
