@@ -54,7 +54,7 @@
 			</thead>
 			<tbody>
 				<?php
-				$sql = mysqli_query($kon, "SELECT * FROM ANGGOTA_BIODIVERSITY ORDER BY NamaIlmiah ASC") or die(mysqli_error($kon));
+				$sql = mysqli_query($kon, "SELECT * FROM ANGGOTA_BIODIVERSITY WHERE Kategori='Flora' ORDER BY NamaIlmiah ASC") or die(mysqli_error($kon));
 				if(mysqli_num_rows($sql) > 0){
 					$no = 1;
 					while($data = mysqli_fetch_assoc($sql)){

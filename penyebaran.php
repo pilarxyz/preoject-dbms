@@ -32,57 +32,66 @@
 <body>
 <div class="container">
     <br>
-    <h4>Database Biodiversity Indonesia</h4>
+    <h4>Penyebaran Biodiversity Indonesia</h4>
 
     <div class="container" style="margin-top:20px">
 		<hr>
-		<a href="tambahdata.php"><button class="btn btn-dark right">Tambah Data</button></a>
         <hr>
 		<div class="table-responsive">
 		<table class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
 					<th>No.</th>
-					<th>Nama Ilmiah</th>
-					<th>Nama </th>
-					<th>Manfaat</th>
-					<th>Populasi</th>
-                    <th>Status</th>
-					<th>Kategori</th>
-					<th>Aksi</th>
+					<th>NamaIlmiah </th>
+                    <th>Nama </th>
+                    <th>Tipe </th>
+					<th>Wilayah</th>
+                    <th>Kode</th>
+					<th>Penyebaran</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
-				$sql = mysqli_query($kon, "SELECT * FROM ANGGOTA_BIODIVERSITY ORDER BY NamaIlmiah ASC") or die(mysqli_error($kon));
+				$sql = mysqli_query($kon,
+			"SELECT *
+			FROM  ANGGOTA_BIODIVERSITY as a
+            join EKOSISTEM as e on a.NamaIlmiah=e.NamaIlmiah 
+			join mempunyai as m on e.NamaIlmiah=m.NamaIlmiah
+			join PENYEBARAN as p on m.KodeWilayah=p.KodeWilayah
+			order by a.NamaIlmiah asc ") or die(mysqli_error($kon));
 				if(mysqli_num_rows($sql) > 0){
 					$no = 1;
 					while($data = mysqli_fetch_assoc($sql)){
+
 						echo '
 						<tr>
 							<td>'.$no.'</td>
 							<td>'.$data['NamaIlmiah'].'</td>
-							<td>'.$data['Nama'].'</td>
-							<td>'.$data['Manfaat'].'</td>
-							<td>'.$data['Populasi'].'</td>
-                            <td>'.$data['Status'].'</td>
-							<td>'.$data['Kategori'].'</td>
+                            <td>'.$data['Nama'].'</td>
+							<td>'.$data['Tipe'].'</td>
+							<td>'.$data['Wilayah'].'</td>
+                            <td>'.$data['KodeWilayah'].'</td>
+                            <td>'.$data['WilayahPenyebaran'].'</td>
 							<td>
-							<a href="detail.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-primary btn-sm">Detail</a>
-								<a href="editdata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-secondary btn-sm">Edit</a>
-								<a href="deletedata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
-							</td>
 						</tr>
 						';
 						$no++;
 					}
-				}else{
+                
+        
+        
+				
+            
+        
+    }else{
 					echo '
 					<tr>
 						<td colspan="6">Tidak ada data.</td>
 					</tr>
 					';
-				}
+				
+    }
+        
 				?>
 			<tbody>
 		</table>

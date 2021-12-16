@@ -32,45 +32,39 @@
 <body>
 <div class="container">
     <br>
-    <h4>Database Biodiversity Indonesia</h4>
+    <h4>Lembaga Biodiversity Indonesia</h4>
 
     <div class="container" style="margin-top:20px">
 		<hr>
-		<a href="tambahdata.php"><button class="btn btn-dark right">Tambah Data</button></a>
+		<a href="tambahlembaga.php"><button class="btn btn-dark right">Tambah Lembaga</button></a>
         <hr>
 		<div class="table-responsive">
 		<table class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
 					<th>No.</th>
-					<th>Nama Ilmiah</th>
+					<th>Id</th>
 					<th>Nama </th>
-					<th>Manfaat</th>
-					<th>Populasi</th>
-                    <th>Status</th>
-					<th>Kategori</th>
+					<th>Alamat</th>
+					<th>Kontak</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
-				$sql = mysqli_query($kon, "SELECT * FROM ANGGOTA_BIODIVERSITY ORDER BY NamaIlmiah ASC") or die(mysqli_error($kon));
+				$sql = mysqli_query($kon, "SELECT * FROM LEMBAGA ORDER BY IdLembaga ASC") or die(mysqli_error($kon));
 				if(mysqli_num_rows($sql) > 0){
 					$no = 1;
 					while($data = mysqli_fetch_assoc($sql)){
 						echo '
 						<tr>
 							<td>'.$no.'</td>
-							<td>'.$data['NamaIlmiah'].'</td>
+							<td>'.$data['IdLembaga'].'</td>
 							<td>'.$data['Nama'].'</td>
-							<td>'.$data['Manfaat'].'</td>
-							<td>'.$data['Populasi'].'</td>
-                            <td>'.$data['Status'].'</td>
-							<td>'.$data['Kategori'].'</td>
+							<td>'.$data['Alamat'].'</td>
+							<td>'.$data['Kontak'].'</td>
 							<td>
-							<a href="detail.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-primary btn-sm">Detail</a>
-								<a href="editdata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-secondary btn-sm">Edit</a>
-								<a href="deletedata.php?NamaIlmiah='.$data['NamaIlmiah'].'" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
+							<a href="detail_lembaga.php?IdLembaga='.$data['IdLembaga'].'" class="btn btn-primary btn-sm">Detail</a>
 							</td>
 						</tr>
 						';

@@ -12,12 +12,14 @@
     <li><a href="index.php">Beranda</a></li>
     <li><a href="data.php">Database</a>
       <ul>
+      <li><a href="data.php">Biodiversity</a></li>
         <li><a href="flora.php">Flora</a></li>
         <li><a href="fauna.php">Fauna</a></li>
       </ul>
     </li>
+    <li><a href="lembaga.php">Lembaga</a></li>
+    <li><a href="penyebaran.php">Penyebaran</a></li>
     <li><a href="search.php">Pencarian</a></li>
-    <li><a href="tambahdata.php">Tambah Data</a></li>
   </ul>
   </div>
 </body>
@@ -31,9 +33,8 @@
     <h4>Database Biodiversity Indonesia</h4>
     <br>
     <h5>Anggota Kelompok</h5>
-    <h6> - Nina <br> - Pilar <br> - Nita <br> - Tita <h6>
-      <br><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum  </p>
-<br>
+    <h6> - Nina Nur Aidha (M0520060) <br> - Pilar Rangga Saputra  (M0520061) <br> - Qonita Nisa (M0520065) <br> - Tita Syakharani Alrizqa (M0520076)<h6>
+    
 
     <?php
       $queries = array();
